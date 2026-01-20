@@ -1,0 +1,21 @@
+services:
+  mariadb:
+    image: mariadb:lts
+    container_name: mariadb
+    volumes:
+      - ./docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/:ro
+      - ./backup/:/backup/
+      - data:/var/lib/mysql/
+    environment:
+      MARIADB_ROOT_PASSWORD: "${MARIADB_ROOT_PASSWORD}"
+      MARIADB_DATABASE: "${MARIADB_DATABASE}"
+      MARIADB_USER: "${MARIADB_USER}"
+      MARIADB_PASSWORD: "${MARIADB_PASSWORD}"
+    networks:
+      - pelican_nw
+    restart: always
+networks:
+  pelican_nw:
+    external: true
+volumes:
+  data: null

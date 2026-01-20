@@ -1,0 +1,12 @@
+.idea/
+.ignore/
+.vscode/
+.env
+*.code-workspace
+*.db
+*.pem
+*.sql
+*.sqlite
+*.tar.gz
+*.tgz
+*.zip

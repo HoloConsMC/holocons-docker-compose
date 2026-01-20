@@ -1,0 +1,26 @@
+services:
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certs/:/etc/nginx/certs/:ro
+      - ./conf.d/:/etc/nginx/conf.d/:ro
+      - ./snippets/:/etc/nginx/snippets/:ro
+      - ./public/:/var/www/html/public/:ro
+      - logs:/var/log/nginx/
+    ports:
+      - "80:80/tcp"
+      - "443:443/tcp"
+      - "443:443/udp"
+    networks:
+      - default_nw
+      - nginx_nw
+    restart: unless-stopped
+networks:
+  default_nw:
+    external: true
+  nginx_nw:
+    external: true
+volumes:
+  logs: null
