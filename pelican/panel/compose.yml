@@ -1,0 +1,27 @@
+services:
+  panel:
+    image: ghcr.io/pelican-dev/panel:latest
+    container_name: pelican_panel
+    restart: always
+    networks:
+      - default_nw
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      XDG_DATA_HOME: /pelican-data
+      APP_URL: "https://cp.holocons.xyz"
+      ADMIN_EMAIL: "gator@holocons.xyz"
+      BEHIND_PROXY: true
+      TRUSTED_PROXIES: "private_ranges"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - pelican-panel-data:/pelican-data/
+      - pelican-panel-logs:/var/www/html/storage/logs/
+
+volumes:
+  pelican-panel-data:
+  pelican-panel-logs:
+
+networks:
+  default_nw:
+    external: true
