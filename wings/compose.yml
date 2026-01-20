@@ -1,0 +1,24 @@
+services:
+  wings:
+    image: ghcr.io/pelican-dev/wings:latest
+    container_name: wings
+    volumes:
+      - ./.ignore/config.yml:/etc/pelican/config.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/containers/:/var/lib/docker/containers/
+      - ./backups/:/var/lib/pelican/backups/
+      - logs:/var/log/pelican/
+    environment:
+      TZ: "UTC"
+      WINGS_UID: "988"
+      WINGS_GID: "988"
+      WINGS_USERNAME: pelican
+    networks:
+      - default_nw
+    restart: always
+    tty: true
+networks:
+  default_nw:
+    external: true
+volumes:
+  logs: null

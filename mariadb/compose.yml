@@ -1,0 +1,16 @@
+services:
+  mariadb:
+    image: mariadb:lts
+    container_name: mariadb
+    volumes:
+      - backup:/backup
+      - data:/var/lib/mysql
+    networks:
+      - pelican_nw
+    restart: always
+networks:
+  pelican_nw:
+    external: true
+volumes:
+  backup: null
+  data: null
